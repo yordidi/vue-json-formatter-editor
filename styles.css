@@ -1,0 +1,42 @@
+.outer-box {
+    display: block;
+    overflow: hidden;
+    height: 500px;
+    border: 1px solid #dcdfe6;
+    margin: 0;
+    box-sizing: border-box;
+    position: relative
+}
+
+/*确认标识符*/
+.confirm-sign {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-25%, 25%);
+    pointer-events: none;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1)
+}
+
+.container {
+    display: block;
+    height: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    font-family: Roboto, sans-serif;
+    line-height: normal;
+}
+
+.warning-box {
+    display: block;
+    overflow: hidden;
+    height: 60px;
+    width: 100%;
+    margin: 0;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0,1,0.5,1);
+}

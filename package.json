@@ -1,0 +1,15 @@
+{
+  "name": "vue-json-formatter-editor",
+  "version": "1.0.0",
+  "description": "a json editor with vue2.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "json",
+    "editor"
+  ],
+  "author": "yaodi",
+  "license": "ISC"
+}
