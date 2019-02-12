@@ -94,17 +94,12 @@
                 if (dataType !== 'string') return;
 
                 let jsonData;
-                try {
-                    jsonData = JSON.parse(v);
-                    const data = this.tokenize(jsonData);
-                    this.markup = data.markup;
-                    this.labels = data.lines - 1;
-                } catch (e) {
-                    this.markup = '';
-                    this.labels = 0;
-                    throw Error('expects json string properties only. can not parse json.');
-                }
 
+                jsonData = JSON.parse(v);
+                const data = this.tokenize(jsonData);
+                if (!data) return;
+                this.markup = data.markup;
+                this.labels = data.lines - 1;
             },
             onKeyPress(event) {
 
@@ -292,7 +287,7 @@
 
                 const container = this.$refs.refContent;
                 const data = this.tokenize(container);
-
+                if (!data) return;
                 this.error = data.error;
                 this.markup = data.markup;
                 if (!this.error) {
