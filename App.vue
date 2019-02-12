@@ -1,7 +1,6 @@
 <template>
     <div class='outer-box'>
-        <div class="confirm-sign" :style="{
-                    opacity: error ? 0 : 1}">
+        <div class="confirm-sign" :style="{opacity: error ? 0 : 1}">
             <svg height='20px'
                  width='20px'
                  viewBox='0 0 100 100'>
@@ -13,40 +12,14 @@
                 ></path>
             </svg>
         </div>
-
         <div class="container">
-            <div class='warning-box' v-if="error" :style="{backgroundColor: colors.background_warning
-                    }">
-                <div :style="{
-                        display:'inline-block',
-                        height:'60px',
-                        width:'60px',
-                        margin:0,
-                        boxSizing:'border-box',
-                        overflow:'hidden',
-                        verticalAlign:'top',
-                        pointerEvents:'none'
-                        }">
-                    <div :style="{
-                                position:'relative',
-                                top:0,
-                                left:0,
-                                height:'60px',
-                                width:'60px',
-                                margin:0,
-                                pointerEvents:'none'
-                                }">
-                        <div :style="{
-                                    position:'absolute',
-                                    top:'50%',
-                                    left:'50%',
-                                    transform:'translate(-50%,-50%)',
-                                    pointerEvents:'none'
-                                    }">
-                            <svg
-                                height='20px'
-                                width='20px'
-                                viewBox='0 0 100 100'>
+            <div class='warning-box' v-if="error" :style="{backgroundColor: colors.background_warning}">
+                <div class="warning-sign-part">
+                    <div class="warning-sign-box">
+                        <div class="warning-sign">
+                            <svg height='20px'
+                                 width='20px'
+                                 viewBox='0 0 100 100'>
                                 <path fillRule='evenodd' clipRule='evenodd'
                                       fill='red'
                                       d='M73.9,5.75c0.467-0.467,1.067-0.7,1.8-0.7c0.7,0,1.283,0.233,1.75,0.7l16.8,16.8  c0.467,0.5,0.7,1.084,0.7,1.75c0,0.733-0.233,1.334-0.7,1.801L70.35,50l23.9,23.95c0.5,0.467,0.75,1.066,0.75,1.8  c0,0.667-0.25,1.25-0.75,1.75l-16.8,16.75c-0.534,0.467-1.117,0.7-1.75,0.7s-1.233-0.233-1.8-0.7L50,70.351L26.1,94.25  c-0.567,0.467-1.167,0.7-1.8,0.7c-0.667,0-1.283-0.233-1.85-0.7L5.75,77.5C5.25,77,5,76.417,5,75.75c0-0.733,0.25-1.333,0.75-1.8  L29.65,50L5.75,26.101C5.25,25.667,5,25.066,5,24.3c0-0.666,0.25-1.25,0.75-1.75l16.8-16.8c0.467-0.467,1.05-0.7,1.75-0.7  c0.733,0,1.333,0.233,1.8,0.7L50,29.65L73.9,5.75z'></path>
@@ -54,77 +27,23 @@
                         </div>
                     </div>
                 </div>
-                <span :style="{
-                            display:'inline-block',
-                            height:'60px',
-                            width:'calc(100% - 60px)',
-                            margin:0,
-                            overflow:'hidden',
-                            verticalAlign:'top',
-                            position:'absolute',
-                            pointerEvents:'none'
-                            }">
-                            <p :style="{
-                                        color          : 'red',
-                                        fontSize       : '12px',
-                                        position       : 'absolute',
-                                        width          : 'calc(100% - 60px)',
-                                        height         : '60px',
-                                        boxSizing      : 'border-box',
-                                        margin         : 0,
-                                        padding        : 0,
-                                        paddingRight   : '10px',
-                                        overflowWrap   : 'break-word',
-                                        display        : 'flex',
-                                        flexDirection  : 'column',
-                                        justifyContent : 'center'}">
-                                {{renderErrorMessage()}}
-                            </p>
-                        </span>
+                <span class="warning-message-part">
+                    <p class="warning-message">
+                        {{renderErrorMessage()}}
+                    </p>
+                </span>
             </div>
-            <div
-                name="body" :style="{
-                        display:'flex',
-                        overflow:'none',
-                        height: error ? 'calc( 100% - 60px )' : '100%',
-                        width:'',
-                        margin:0,
-                        resize:'none',
-                        fontFamily:'RobotoMono,Monaco,monospace',
-                        backgroundColor: colors.background,
-                        fontSize:'14px',
-                        transitionDuration:'0.2s',
-                        transitionTimingFunction:'cubic-bezier(0,1,0.5,1)'}">
-                        <span name="labels"
-                              ref="refLabels"
-                              :style="{
-                            display:'inline-block',
-                            boxSizing:'border-box',
-                            verticalAlign:'top',
-                            height:'100%',
-                            width:'44px',
-                            margin:0,
-                            padding:'5px 0px 5px 10px',
-                            overflow:'hidden',
-                            color:'#D4D4D4'}">
-                                <div v-for="number in labels"
-                                     :style="{color: error.line === number ? 'red': colors.default}"
-                                     :key="number + Math.random()">{{number}}</div>
-                        </span>
-                <span :style="{display:'inline-block',
-                        boxSizing:'border-box',
-                        verticalAlign:'top',
-                        height:'100%',
-                        width:'',
-                        flex:1,
-                        margin:0,
-                        padding:'5px',
-                        overflowX:'hidden',
-                        overflowY:'auto',
-                        wordWrap:'break-word',
-                        whiteSpace:'pre-line',
-                        color:'#D4D4D4',
-                        outline:'none'}"
+            <div name="body"
+                class="main-body"
+                :style="{height: error ? 'calc( 100% - 60px )' : '100%'}">
+                <span name="labels"
+                      ref="refLabels"
+                      class="main-body-label">
+                        <div v-for="number in labels"
+                             :style="{color: error.line === number ? 'red': colors.default}"
+                             :key="number + Math.random()">{{number}}</div>
+                </span>
+                <span class="main-body-content"
                       ref="refContent"
                       :contentEditable="true"
                       v-html="markup"
@@ -132,6 +51,7 @@
                       autoCorrect='off'
                       autoCapitalize='off'
                       @keydown="onKeyDown"
+                      @click="onClick"
                       @blur="onBlur"
                       @paste="onPaste"
                       @keypress="onKeyPress"
@@ -145,54 +65,76 @@
 <script>
     import defaultLocale from './en';
     import themes from './themes';
+    import mitsuketa from './mitsuketa/index';
     import {format} from './locale/index';
 
     export default {
         data() {
             return {
-                colors: themes.light_mitsuketa_tribute,
-                labels: 0,
+                colors: themes.light_mitsuketa_tribute, // 颜色主题
+                labels: 0, // 行数
                 error: false,
                 markup: '' // json html
             };
         },
         props: {
             viewOnly: false,
-            value: String
+            value: [String, Object, Array]
         },
         watch: {
-            value(v) {
-                this.initData(v)
+            value(newValue, oldValue) {
+                const shouldUpdate = mitsuketa.identical(newValue, oldValue);
+                if (shouldUpdate) this.initData(newValue);
             }
         },
         methods: {
             initData(v) {
-                try {
+                if ([null, undefined, ''].indexOf(v) > -1) return;
 
-                    const jsonData = JSON.parse(v);
+                let jsonData;
+                const dataType = mitsuketa.getType(v);
 
-                    const data = this.tokenize(jsonData);
-
-                    this.markup = data.markup;
-
-                    this.labels = data.lines - 1;
-                } catch (e) {
+                if (['object', 'array'].indexOf(dataType) > -1) {
+                    jsonData = JSON.parse(JSON.stringify(v))
+                } else if (dataType === 'string') {
+                    try {
+                        jsonData = JSON.parse(v);
+                    } catch (e) {
+                        this.markup = '';
+                        this.labels = 0;
+                        throw Error('expects json string properties only. can not parse json.');
+                    }
+                } else {
                     this.markup = '';
                     this.labels = 0;
+                    throw Error('expects object/string properties only. Got \'' + typeof v + '\' type instead.');
                 }
+                const data = this.tokenize(jsonData);
+                this.markup = data.markup;
+                this.labels = data.lines - 1;
             },
             onKeyPress(event) {
-                // this.stopEvent(event);
+                this.stopEvent(event);
+                if (this.viewOnly) return;
                 this.setUpdateTime();
+            },
+            onClick(event) {
+                this.stopEvent(event);
+                if (this.viewOnly) return;
             },
             onBlur(event) {
                 this.stopEvent(event);
+                if (this.viewOnly) return;
                 this.setUpdateTime();
             },
             onScroll(event) {
                 this.$refs.refLabels.scrollTop = event.target.scrollTop;
             },
             onPaste(event) {
+                if (this.viewOnly) {
+                    this.stopEvent(event);
+                    return;
+                }
                 event.preventDefault();
                 var text = event.clipboardData.getData('text/plain');
                 document.execCommand('insertHTML', false, text);
@@ -202,11 +144,13 @@
                 switch (event.key) {
                     case 'Tab':
                         this.stopEvent(event);
+                        if (this.viewOnly) break;
                         document.execCommand('insertText', false, '  ');
                         this.setUpdateTime();
                         break;
                     case 'Backspace' :
                     case 'Delete'     :
+                        if (this.viewOnly) this.stopEvent();
                         this.setUpdateTime();
                         break;
                     case 'ArrowLeft' :
@@ -217,8 +161,10 @@
                         break;
                     case 'a'         :
                     case 'c'          :
+                        if (this.viewOnly) this.stopEvent();
                         break;
                     default :
+                        if (this.viewOnly) this.stopEvent();
                         break;
                 }
             },
@@ -1697,12 +1643,15 @@
         mounted() {
 
             this.updateTime = false;
-            setInterval(this.scheduledUpdate, 100);
+            this.timer = setInterval(this.scheduledUpdate, 100);
             this.initData(this.value)
+        },
+        beforeDestroy() {
+            if (this.timer) clearInterval(this.timer)
         }
     };
 </script>
 
-<style lang="less" scoped>
+<style scoped>
     @import "styles.css";
 </style>
