@@ -79,43 +79,39 @@
         },
         props: {
             viewOnly: false,
-            value: [String, Object, Array]
+            value: String
         },
         watch: {
-            value(newValue, oldValue) {
-                const shouldUpdate = mitsuketa.identical(newValue, oldValue);
-                if (shouldUpdate) this.initData(newValue);
+            value(newValue) {
+                this.initData(newValue);
             }
         },
         methods: {
             initData(v) {
                 if ([null, undefined, ''].indexOf(v) > -1) return;
 
-                let jsonData;
                 const dataType = mitsuketa.getType(v);
+                if (dataType !== 'string') return;
 
-                if (['object', 'array'].indexOf(dataType) > -1) {
-                    jsonData = JSON.parse(JSON.stringify(v))
-                } else if (dataType === 'string') {
-                    try {
-                        jsonData = JSON.parse(v);
-                    } catch (e) {
-                        this.markup = '';
-                        this.labels = 0;
-                        throw Error('expects json string properties only. can not parse json.');
-                    }
-                } else {
+                let jsonData;
+                try {
+                    jsonData = JSON.parse(v);
+                    const data = this.tokenize(jsonData);
+                    this.markup = data.markup;
+                    this.labels = data.lines - 1;
+                } catch (e) {
                     this.markup = '';
                     this.labels = 0;
-                    throw Error('expects object/string properties only. Got \'' + typeof v + '\' type instead.');
+                    throw Error('expects json string properties only. can not parse json.');
                 }
-                const data = this.tokenize(jsonData);
-                this.markup = data.markup;
-                this.labels = data.lines - 1;
+
             },
             onKeyPress(event) {
-                this.stopEvent(event);
-                if (this.viewOnly) return;
+
+                if (this.viewOnly) {
+                    this.stopEvent(event);
+                    return;
+                };
                 this.setUpdateTime();
             },
             onClick(event) {
@@ -300,7 +296,7 @@
                 this.error = data.error;
                 this.markup = data.markup;
                 if (!this.error) {
-                    this.$emit('input', data.json);
+                    this.$emit('input', data.jsString);
                 }
 
                 let cursorPosition = this.getCursorPosition(data.error) + cursorOffset;
@@ -744,8 +740,6 @@
                     };
 
                     function setError(tokenID, reason, offset = 0) {
-                        console.log('>>>>>tokenID', tokenID);
-                        console.log('>>>>>reason', reason);
                         error = {
                             token: tokenID,
                             line: line,
@@ -1297,11 +1291,12 @@
                         //     if(isFunction(this.props.modifyErrorText))
                         //         error.reason = this.props.modifyErrorText(error.reason);
                     }
+
                     return {
                         tokens: buffer.tokens_merge,
                         noSpaces: buffer.tokens_plainText,
                         indented: buffer.indented,
-                        json: buffer.json,
+                        jsString: buffer.json,
                         jsObject: buffer.jsObject,
                         markup: buffer.markup,
                         lines: _line,
@@ -1628,11 +1623,12 @@
                         }
                     }
                     lines += 2;
+
                     return {
                         tokens: buffer2.tokens,
                         noSpaces: clean,
                         indented: indentation,
-                        json: JSON.stringify(something),
+                        jsString: JSON.stringify(something),
                         jsObject: something,
                         markup: markup,
                         lines: lines

@@ -31,6 +31,9 @@ import JsonEditor from 'vue-json-formatter-editor';
     }
 ```
 
+##### v-model双向数据绑定
+v-model是一个json字符串。JsonEditor接受一个json字符串，并输出一个json字符串。
+
 ### Features
 * 支持v-model双向绑定
 * 支持只读模式viewOnly
